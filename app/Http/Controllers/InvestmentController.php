@@ -41,7 +41,6 @@ class InvestmentController extends Controller
             'daily_count'=>0,
             'investment_status'=>'active',
             'profit'=>$id,
-            'user_id'=>$id,
         ]);
 
 

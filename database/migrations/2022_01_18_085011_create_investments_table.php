@@ -15,6 +15,10 @@ class CreateInvestmentsTable extends Migration
     {
         Schema::create('investments', function (Blueprint $table) {
             $table->id();
+            $table->string('user_id');
+            $table->string('amount');
+            $table->integer('profit');
+            $table->string('investment_status');
             $table->timestamps();
         });
     }

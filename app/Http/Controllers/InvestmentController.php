@@ -73,17 +73,30 @@ class InvestmentController extends Controller
         return Investment::where('user_id', $user_id)->get();
     }   
 
-    public function show($id)
+    public function withdraw(Request $request, $id)
     {
-        //
+        //get user account
+        $user = User::where('id', $id)->get();
+        if($user['profit']>$request['amount']){
+            $new_profit_bal = $user['profit']-$request['amount'];
+
+            //subtract from user account
+            User::where('id', $id)->update([
+                'profit'=>$new_profit_bal
+            ]);
+            
+            //create withdrawal request
+            withdraw::create([
+                'user_id'=>$user['id'],
+                'amount'=>$request['amount'],
+                'status'=>'pendind',
+                'message'=>''
+            ]);
+        }
+        return withdraw::where('user_id', $user['id'])->get();
     }
 
     
-    public function edit($id)
-    {
-        //
-    }
-
     public function update(Request $request, $id)
     {
         //
